@@ -21,5 +21,8 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     # if we add the url here it sorts it first then sends it to the next place
-    path('api/', include('api.urls')) 
+    path('api/', include('api.urls')),
+
+    # send urlse to the frontend (the urls that the users see)
+    path('', include('frontend.urls'))
 ]

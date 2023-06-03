@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" /> <!-- Character encoding for the document -->
+        <meta name="viewport" content="width=device-width, initial-scale=1" /> <!-- Responsive viewport settings -->
+        <title>Music Controller</title> <!-- Document title -->
+        {% load static %} <!-- Template tag to load static files -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> <!-- External jQuery library -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" /> <!-- External font stylesheet -->
+        <link rel="stylesheet" type="text/css" href="{% static "css/index.css" %}" /> <!-- Link to a CSS file for styling -->
+    </head>
+    <body>
+        <div id="main"> <!-- Main container div -->
+            <div id="app"></div> <!-- Div with the id "app" where the React app will be rendered -->
+        </div>
+    <script src="{% static "frontend/main.js" %}"></script> <!-- Link to a JavaScript file -->
+  </body>
+</html>
