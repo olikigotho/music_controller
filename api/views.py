@@ -1,14 +1,17 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from rest_framework import generics
+from .serializers import RoomSerializer
+from .models import Room
 
 # Create your views here.
 
-# location after the slash on the url
-def main(request):
-    """
-    Content which will be shown on the webpage
 
-    Returns:
-        response: http response object
-    """
-    return (HttpResponse('hello'))
+class RoomView(generics.ListAPIView):
+    # makes a list of the contents of the database
+    queryset = Room.objects.all()
+    serializer_class = RoomSerializer
+
+# class RoomView(generics.CreateAPIView):
+#     # enables us to add content to the database
+#     queryset = Room.objects.all()
+#     serializer_class = RoomSerializer
