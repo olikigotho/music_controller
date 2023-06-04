@@ -1,20 +1,25 @@
+/* Set the height of the html and body elements to 100%,
+   and remove any margin and padding */
 html,
 body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
+/* Set the position, width, and height of the #main element to cover the entire viewport */
 #main {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
 }
 
+/* Set the width and height of the #app element to cover the entire viewport,
+    and display its children in a flex layout */
 #app {
-  width: 100%;
-  height: 100%;
-  display: flex;
+    width: 100%;
+    height: 100%;
+    display: flex;
 }
