@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -125,3 +126,39 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Added so chrome doesn't cache the code enabling watching
+#
+#
+# Set cache control headers for static files
+STATICFILES_DIRS = [
+    # Path to your React app's static files
+    os.path.join(BASE_DIR, '/frontend/static'),
+]
+
+# Configure cache control headers
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
+
+# Add cache control headers middleware
+MIDDLEWARE = [
+    # ...
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.cache.UpdateCacheMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
+    # ...
+]
+
+# Set cache control headers for static files
+CACHE_MIDDLEWARE_SECONDS = 0
+
+# Disable caching for dynamic content (optional)
+CACHE_MIDDLEWARE_ALIAS = 'default'
+CACHE_MIDDLEWARE_KEY_PREFIX = ''
+CACHE_MIDDLEWARE_ANONYMOUS_ONLY = True
