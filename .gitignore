@@ -1,3 +1,8 @@
 db.sqlite3
 music_controller/__pycache__
-api/__pychache__
+api/__pycache__
+api/migrations
+frontend/__pycache__
+frontend/migrations
+frontend/node_modules
+frontend/static/frontend
