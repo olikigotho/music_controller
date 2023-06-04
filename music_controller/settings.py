@@ -134,7 +134,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Set cache control headers for static files
 STATICFILES_DIRS = [
     # Path to your React app's static files
-    os.path.join(BASE_DIR, '/frontend/static'),
+    os.path.join(BASE_DIR, 'frontend/static'),
 ]
 
 # Configure cache control headers

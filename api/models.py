@@ -13,7 +13,7 @@ def generate_unique_code()-> string:
         code = ''.join(random.choices(string.ascii_uppercase, k=length))
 
         # check that the code is unique by filtering through the rest of the codes
-        if Room.objects.filer(code=code).count() == 0:
+        if Room.objects.filter(code=code).count() == 0:
             break
     return code
 
@@ -23,7 +23,7 @@ def generate_unique_code()-> string:
 class Room(models.Model):
 
     # uppercase random ascii string to identify room
-    code = models.CharField(max_length=8, default="", unique=True)
+    code = models.CharField(max_length=8, default=generate_unique_code, unique=True)
 
     # need to keep trach of who is the host
     host = models.CharField(max_length=50, unique=True)
