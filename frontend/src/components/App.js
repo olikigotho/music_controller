@@ -9,7 +9,9 @@ import {BrowserRouter as Router, Route, Routes, Link, Redirect } from "react-rou
 const App = () => {
     const [content, setContent] = useState("Testing Now!")
     return (// JSX code representing the content to be rendered
-        <Home />   
+        <div>
+            <Home />
+        </div>        
     );
 };
 
