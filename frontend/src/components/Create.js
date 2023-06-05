@@ -8,60 +8,71 @@ import {
 
 const Create = () => {
     const defaultVotes = 2;
-
-    return(
-        // number of pixels multiplied by 8 is the number in the grid
-        // 12 is the maximum number of spaces
+    return (
         <Grid container spacing={1}>
+            {/* Grid item with 12 spaces, aligns content to center */}
             <Grid item xs={12} align="center">
-                <Typography component="h4" vairant="h4">
+                {/* Heading typography */}
+                <Typography component="h4" variant="h4">
                     Create a room?
                 </Typography>
             </Grid>
+            {/* Grid item with 12 spaces, aligns content to center */}
             <Grid item xs={12} align="center">
-                <FormControl component="fieldset" >
-                    <FormHelperText >
+                {/* Form control wrapper */}
+                <FormControl component="fieldset">
+                    {/* Form helper text */}
+                    <FormHelperText>
+                        {/* Div aligns text to center */}
                         <div align="center">
-                            Guest Control of Plackback State
+                            Guest Control of Playback State
                         </div>
                     </FormHelperText>
+                    {/* Radio group for selecting playback control */}
                     <RadioGroup row defaultValue="true">
+                        {/* Radio button for Play/Pause control */}
                         <FormControlLabel
-                            value="true" 
-                            control={ <Radio color="primary" />} 
+                            value="true"
+                            control={<Radio color="primary" />}
                             label="Play/Pause"
-                            labelPlacement = "bottom"
+                            labelPlacement="bottom"
                         />
+                        {/* Radio button for No Control */}
                         <FormControlLabel
-                            value="false" 
-                            control={ <Radio color="secondary" />} 
+                            value="false"
+                            control={<Radio color="secondary" />}
                             label="No Control"
-                            labelPlacement = "bottom"
+                            labelPlacement="bottom"
                         />
                     </RadioGroup>
                 </FormControl>
-            </Grid>    
+            </Grid>
+            {/* Grid item with 12 spaces, aligns content to center */}
             <Grid item xs={12} align="center">
+                {/* Form control wrapper */}
                 <FormControl>
+                    {/* Text field for entering votes */}
                     <TextField
-                        required={ true }
+                        required={true}
                         type="number"
-                        defaultValue={ defaultVotes }
+                        defaultValue={defaultVotes}
                         inputProps={{
                             min: 1,
                             style: { textAlign: "center" },
                         }}
                     />
+                    {/* Form helper text */}
                     <FormHelperText>
-                        <div align = "center">
+                        {/* Div aligns text to center */}
+                        <div align="center">
                             Votes Required to Skip Song
                         </div>
                     </FormHelperText>
-
                 </FormControl>
-            </Grid> 
+            </Grid>
         </Grid>
     );
 }
+    
 
 export default Create
