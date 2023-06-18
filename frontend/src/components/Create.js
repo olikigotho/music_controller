@@ -1,13 +1,28 @@
-import React, { setState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { 
     Button, Grid, Typography, TextField, FormHelperText, 
     FormControl, Radio, RadioGroup, FormControlLabel, FormLabel
-} from "@material-ui/core";
+} from "@mui/material";
+
+
 
 
 const Create = () => {
     const defaultVotes = 2;
+    const [votesToSkip, setVotesToSkip] = useState(true);
+    const [guestCanPause, setGuestCanPause] = useState(true);
+
+    const handlesVotesChange = (e) => {
+        setVotesToSkip(e.target.value);
+    };
+    const handleGuestCanPauseChange = (e) => {
+        setGuestCanPause(e.target.value == "true" ? true : false,)
+    };
+
+    const handleRoomButtonPressed = () => {
+        console.log(votesToSkip, guestCanPause)
+    };
     return (
         <Grid container spacing={1}>
             {/* Grid item with 12 spaces, aligns content to center */}
@@ -22,14 +37,18 @@ const Create = () => {
                 {/* Form control wrapper */}
                 <FormControl component="fieldset">
                     {/* Form helper text */}
-                    <FormHelperText>
-                        {/* Div aligns text to center */}
-                        <div align="center">
+                    <FormHelperText style={{ textAlign: "center" }}>
+                        {/* Aligns text to center */}
+                        <span style={{ display: "block" }}>
                             Guest Control of Playback State
-                        </div>
+                        </span>
                     </FormHelperText>
                     {/* Radio group for selecting playback control */}
-                    <RadioGroup row defaultValue="true">
+                    <RadioGroup
+                        row
+                        defaultValue="true"
+                        onChange={handleGuestCanPauseChange}
+                    >
                         {/* Radio button for Play/Pause control */}
                         <FormControlLabel
                             value="true"
@@ -55,6 +74,7 @@ const Create = () => {
                     <TextField
                         required={true}
                         type="number"
+                        onChange={ handlesVotesChange }
                         defaultValue={defaultVotes}
                         inputProps={{
                             min: 1,
@@ -62,16 +82,18 @@ const Create = () => {
                         }}
                     />
                     {/* Form helper text */}
-                    <FormHelperText>
-                        {/* Div aligns text to center */}
-                        <div align="center">
-                            Votes Required to Skip Song
-                        </div>
+                    <FormHelperText style={{ textAlign: "center" }}>
+                        {/* Aligns text to center */}
+                        <span style={{ display: "block" }}>
+                        Votes Required to Skip Song
+                        </span>
                     </FormHelperText>
                 </FormControl>
             </Grid>
             <Grid item xs={12} align="center">
-                <Button color="primary" variant="contained">
+                <Button color="primary" 
+                    variant="contained"
+                    onClick = { handleRoomButtonPressed }>
                     Create A Room
                 </Button>
             </Grid>

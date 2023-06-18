@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { render } from "react-dom";
+import { createRoot } from "react-dom/client";
 import Home from "./Home";
 import {BrowserRouter as Router, Route, Routes, Link, Redirect } from "react-router-dom";
 
@@ -15,10 +15,15 @@ const App = () => {
     );
 };
 
-// Getting the element with the id "app" from the document
-const appDiv = document.getElementById("app");
 
-// Rendering the App component and attaching it to the appDiv element
-render(<App />, appDiv);
+// Wait for the DOM content to be loaded before running the rest of
+// the code
+document.addEventListener("DOMContentLoaded", function () {
+    // Getting the element with the id "app" from the document
+    const appDiv = document.getElementById("app");
+
+    // Rendering the App component and attaching it to the appDiv element
+    createRoot(appDiv).render(<App />);
+});
 
 export default App;
