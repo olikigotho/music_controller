@@ -10,7 +10,7 @@ import {
 
 const Create = () => {
     const defaultVotes = 2;
-    const [votesToSkip, setVotesToSkip] = useState(true);
+    const [votesToSkip, setVotesToSkip] = useState(2);
     const [guestCanPause, setGuestCanPause] = useState(true);
 
     const handlesVotesChange = (e) => {
@@ -21,7 +21,20 @@ const Create = () => {
     };
 
     const handleRoomButtonPressed = () => {
-        console.log(votesToSkip, guestCanPause)
+        const requestOptions = {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                votes_to_skip: votesToSkip,
+                guest_can_pause: guestCanPause
+            }),
+        };
+        // send the resquest to the target of the fetch
+        fetch("/api/create-room", requestOptions)
+            // once we get a response, convert response to json.
+            .then((response) => response.json())
+            // log the data to the console
+            .then((data) => console.log(data));
     };
     return (
         <Grid container spacing={1}>
