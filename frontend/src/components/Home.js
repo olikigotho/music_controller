@@ -36,6 +36,12 @@ const Home = () => {
         fetchRoomCode();
     }, []);
 
+    // Clear the rooms code
+    const clearRoomCode = () => {
+        setRoomCode(null);
+    };
+        
+
     // Define a nested functional component named HomePage
     const HomePage = () => {
         return (
@@ -84,7 +90,9 @@ const Home = () => {
                     <Route path="/create" element={<Create />} />
                     {/* Render the Room component when the path is "/room/:roomCode" */}
                     {/* Must have ": paranthesis to work*/ }
-                    <Route path="/room/:roomCode" element={<Room />} />
+                    {/* ... is the spread operator. Callback enabables component 
+                    to change aparent*/}
+                    <Route path="/room/:roomCode" element={<Room leaveRoomCallback={clearRoomCode} />} />
                     {/* Render the Outlet component for any other unmatched routes */}
                     <Route path="/*" element={<Outlet />} />
                 </Routes>
