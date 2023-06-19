@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { 
     Button, Grid, Typography, TextField, FormHelperText, 
     FormControl, Radio, RadioGroup, FormControlLabel, FormLabel
@@ -9,10 +9,10 @@ import {
 
 
 const Create = () => {
+    const navigate = useNavigate()
     const defaultVotes = 2;
     const [votesToSkip, setVotesToSkip] = useState(2);
     const [guestCanPause, setGuestCanPause] = useState(true);
-
     const handlesVotesChange = (e) => {
         setVotesToSkip(e.target.value);
     };
@@ -33,8 +33,8 @@ const Create = () => {
         fetch("/api/create-room", requestOptions)
             // once we get a response, convert response to json.
             .then((response) => response.json())
-            // log the data to the console
-            .then((data) => console.log(data));
+            // move to the newly formed page
+            .then((data) => navigate('/room/' + data.code));
     };
     return (
         <Grid container spacing={1}>
