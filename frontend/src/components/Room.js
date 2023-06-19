@@ -3,15 +3,20 @@ import { useParams } from 'react-router-dom';
 
 const Room = (
 ) => {
-    const { roomCode } = useParams();
-    const [votesToSkip, setVotesToSkip ] = useState(2);
-    const [guestCanPause, setGuestCanPause] = useState(false);
-    const [isHost, setIsHost] = useState(false);
+    const { roomCode } = useParams(); // Retrieves the room code from the URL parameter using the "useParams" hook
+
+    const [votesToSkip, setVotesToSkip] = useState(2); // Defines a state variable for the number of votes required to skip a song
+    const [guestCanPause, setGuestCanPause] = useState(false); // Defines a state variable for whether guests can control playback
+    const [isHost, setIsHost] = useState(false); // Defines a state variable for whether the user is the host of the room
+
     const getRoomDetails = () => {
-        fetch('/api/get-room' + '?code=' + roomCode)
+    // Fetches room details from the backend API based on the room code
+    fetch('/api/get-room' + '?code=' + roomCode)
         // returns without return statment since it's one line
+        // Converts the response to JSON
         .then((response) => response.json())
         .then((data) => {
+            // Updates the state variables with the retrieved room details
             setVotesToSkip(data.votes_to_skip);
             setGuestCanPause(data.guest_can_pause);
             setIsHost(data.is_host);
@@ -19,6 +24,7 @@ const Room = (
         });
     }
     useEffect(() => {
+         // Executes the "getRoomDetails" function when the component mounts
         getRoomDetails();
       }, []); 
     return (

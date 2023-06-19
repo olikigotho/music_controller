@@ -9,15 +9,15 @@ import {BrowserRouter as Router, Route, Routes, Link, Redirect } from "react-rou
 const App = () => {
     const [content, setContent] = useState("Testing Now!")
     return (// JSX code representing the content to be rendered
-        <div>
+        // Move center to whaterver room we want to use it in
+        <div className="center">
             <Home />
         </div>        
     );
 };
 
 
-// Wait for the DOM content to be loaded before running the rest of
-// the code
+// Wait for the DOM content to be loaded before running the rest of the code
 document.addEventListener("DOMContentLoaded", function () {
     // Getting the element with the id "app" from the document
     const appDiv = document.getElementById("app");

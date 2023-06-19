@@ -7,11 +7,8 @@ from rest_framework.response import Response
 
 # Create your views here.
 
-
-# class RoomView(generics.ListAPIView):
-#     # makes a list of the contents of the database
-#     queryset = Room.objects.all()
-#     serializer_class = RoomSerializer
+# sessions store informaiton about a particular user's session:
+# self.request.session['name_of_information'] = information
 
 class RoomView(generics.CreateAPIView):
     # enables us to add content to the database
@@ -41,7 +38,33 @@ class GetRoom(APIView):
             # is the user the host of the room
             data['is_host'] = self.request.session.session_key == room[0].host
             return Response(data, status=status.HTTP_200_OK)
-        return Response({'Room Not Found': 'Invalid Room Code.'}, status=status.HTTP_404_NOT_FOUND)
+        return Response({'Room Not Found': 'Invalid Room Code.'}, 
+                        status=status.HTTP_404_NOT_FOUND)
+
+class JoinRoom(APIView):
+    # keyword in url is 'code'
+    lookup_url_kwarg = 'code'
+    def post(self, request, format=None):
+        # Check whether the current user has an active session
+        if not self.request.session.exists(self.request.session.session_key):
+            
+            # if they don't have a session, create it.
+            self.request.session.create()
+        code = request.data.get(self.lookup_url_kwarg)
+        if code == None:
+            return Response({'Bad Request': 'Invalid post data, did not find a code key'},
+                            status=status.HTTP_400_BAD_REQUEST)
+        room_result = Room.objects.filter(code=code)
+        if len(room_result) > 0:
+            room = room_result[0]
+            # make a note that the user is in the room
+            # to be able return them to the room if they close the app and come back
+            self.request.session['room_code'] = code
+            return Response({'message': 'Room Joined'}, status=status.HTTP_200_OK)
+        
+        return Response({'Room Not Found': 'Invalid Room Code.'}, 
+                        status=status.HTTP_404_NOT_FOUND)
+
 
 class CreateRoomView(APIView):
     serializer_class = CreateRoomSerializer
@@ -75,6 +98,8 @@ class CreateRoomView(APIView):
             # save the data for the new room
             room.save(update_fields = ["guest_can_pause",
                                         "votes_to_skip"])
+             #store infomation of the host
+            self.request.session['room_code'] = room.code
             return Response(RoomSerializer(room).data, status=status.HTTP_200_OK)
         else:
             # create a new room 
@@ -82,6 +107,8 @@ class CreateRoomView(APIView):
                         votes_to_skip=votes_to_skip)
             room.save()
 
+            #store infomation of the host
+            self.request.session['room_code'] = room.code
             # Return infromation about the room just created to the
             # person who sent the request
             return Response(RoomSerializer(room).data, status=status.HTTP_201_CREATED)

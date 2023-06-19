@@ -9,24 +9,30 @@ import {
 
 
 const Create = () => {
-    const navigate = useNavigate()
-    const defaultVotes = 2;
-    const [votesToSkip, setVotesToSkip] = useState(2);
-    const [guestCanPause, setGuestCanPause] = useState(true);
+    const navigate = useNavigate(); // Retrieves the navigate function from the React Router to enable navigation within the application
+
+    const defaultVotes = 2; // Sets the default number of votes to skip a song
+
+    const [votesToSkip, setVotesToSkip] = useState(2); // Initializes the state variable for the number of votes required to skip a song with a default value of 2
+    const [guestCanPause, setGuestCanPause] = useState(true); // Initializes the state variable for whether guests can control playback with a default value of true
+
     const handlesVotesChange = (e) => {
-        setVotesToSkip(e.target.value);
+        // Update the votesToSkip state variable with the value entered in the input field
+        setVotesToSkip(e.target.value); 
     };
+
     const handleGuestCanPauseChange = (e) => {
-        setGuestCanPause(e.target.value == "true" ? true : false,)
+        // Updates the guestCanPause state variable based on the selected option in the radio buttons
+        setGuestCanPause(e.target.value == "true" ? true : false); 
     };
 
     const handleRoomButtonPressed = () => {
         const requestOptions = {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
+            method: "POST", // Sets the HTTP method to POST for sending data
+            headers: { "Content-Type": "application/json" }, // Sets the content type header to JSON
             body: JSON.stringify({
-                votes_to_skip: votesToSkip,
-                guest_can_pause: guestCanPause
+                votes_to_skip: votesToSkip, // Sets the votes_to_skip value in the request body
+                guest_can_pause: guestCanPause, // Sets the guest_can_pause value in the request body
             }),
         };
         // send the resquest to the target of the fetch
